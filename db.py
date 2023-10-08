@@ -1,0 +1,2 @@
+gender: dict = {}
+anime: dict = {}
