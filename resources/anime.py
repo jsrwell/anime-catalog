@@ -16,11 +16,14 @@ from schemas import (
 )
 
 
-blueprint = Blueprint('animes', __name__, description='Operations on Animes')
+blueprint = Blueprint('Animes', __name__, description='Animes on the Catalog.')
 
 
 @blueprint.route('/anime/<anime_id>')
 class Anime(MethodView):
+    """Anime of the Catalog."""
+
+    @blueprint.response(200, AnimeSchema)
     def get(self, anime_id):
         """Return the data of an Anime."""
 
@@ -30,6 +33,7 @@ class Anime(MethodView):
         except KeyError:
             abort(404, message='Anime not found.')
 
+    @blueprint.response(200, AnimeSchema)
     @blueprint.arguments(AnimeUpdateSchema)
     def put(self, anime_data, anime_id):
         """Update the data of an Anime."""
@@ -55,11 +59,15 @@ class Anime(MethodView):
 
 @blueprint.route('/anime')
 class AnimeList(MethodView):
+    """Animes of the Catalog."""
+
+    @blueprint.response(200, AnimeSchema(many=True))
     def get(self):
         """Return a list of animes."""
 
-        return {"animes": list(animes.values())}
+        return list(animes.values())
 
+    @blueprint.response(201, AnimeSchema)
     @blueprint.arguments(AnimeSchema)
     def post(self, new_anime):
         """Create a new anime."""

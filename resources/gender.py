@@ -16,11 +16,14 @@ from schemas import (
 )
 
 
-blueprint = Blueprint('genders', __name__, description='Operations on Genders')
+blueprint = Blueprint('Genders', __name__, description='Genders of the Animes')
 
 
 @blueprint.route('/gender/<gender_id>')
 class Gender(MethodView):
+    """Gender of the Animes."""
+
+    @blueprint.response(200, GenderSchema)
     def get(self, gender_id):
         """Return the data of an Gender."""
 
@@ -30,6 +33,7 @@ class Gender(MethodView):
         except KeyError:
             abort(404, message='Gender not found.')
 
+    @blueprint.response(200, GenderSchema)
     @blueprint.arguments(GenderUpdateSchema)
     def put(self, gender_data, gender_id):
         """Update the data of an Gender."""
@@ -55,11 +59,15 @@ class Gender(MethodView):
 
 @blueprint.route('/gender')
 class GenderList(MethodView):
+    """Genders of the Animes."""
+
+    @blueprint.response(200, GenderSchema(many=True))
     def get(self):
         """Return a list of genders."""
 
-        return {"genders": list(genders.values())}
+        return list(genders.values())
 
+    @blueprint.response(201, GenderSchema)
     @blueprint.arguments(GenderSchema)
     def post(self, new_gender):
         """Create a new gender."""
