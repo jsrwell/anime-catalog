@@ -1,15 +1,16 @@
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
+"""
+Anime Model
+"""
+from app.models.db import db
 
 
 class Anime(db.Model):
     """Model for Anime."""
 
-    id = db.Column(db.String, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String, nullable=False)
     description = db.Column(db.String, nullable=False)
-    gender_id = db.Column(db.String, db.ForeignKey(
+    gender_id = db.Column(db.Integer, db.ForeignKey(
         'gender.id'), nullable=False)
 
     gender = db.relationship('Gender', backref='animes')
