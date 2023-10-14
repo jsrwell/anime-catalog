@@ -1,61 +1,61 @@
 # Animes Catalog REST API
 
-Este é um servidor baseado em Flask que oferece uma API REST para gerenciar informações sobre animes. Siga as etapas abaixo para configurar e executar o servidor.
+This is a Flask-based server that provides a REST API for managing anime information. Follow the steps below to set up and run the server.
 
-## Instalação Rápida
+## Quick Installation
 
-1. Clone o repositório:
+1. Clone the repository:
 
     ```bash
     git clone https://github.com/jsrwell/anime-catalog
-    cd seu-repositorio
+    cd your-repository
     ```
 
-2. Crie um ambiente virtual (opcional, mas recomendado):
+2. Create a virtual environment (optional but recommended):
 
     ```bash
     python -m venv venv
     source venv/bin/activate
     ```
 
-3. Instale as dependências:
+3. Install the dependencies:
 
     ```bash
     pip install -r requirements.txt
     ```
 
-4. Configure o banco de dados:
+4. Configure the database:
 
-    - Inicialize o banco de dados:
+    - Initialize the database:
 
         ```bash
         flask db init
         ```
 
-    - Crie uma migração:
+    - Create a migration:
 
         ```bash
         flask db migrate
         ```
 
-    - Aplique as migrações:
+    - Apply the migrations:
 
         ```bash
         flask db upgrade
         ```
 
-5. Inicie o servidor:
+5. Start the server:
 
     ```bash
     flask run
     ```
 
-Agora o servidor está em execução. Você pode acessar a API em `http://localhost:5000` para ver as rotas disponíveis.
+Now the server is up and running. You can access the API at `http://localhost:5000` to view the available routes.
 
-## Uso
+## Usage
 
-Você pode usar esta API para gerenciar informações sobre animes. Consulte a documentação da API para obter mais informações sobre como usar as rotas disponíveis.
+You can use this API to manage anime information. Refer to the API documentation for more details on how to use the available routes.
 
-## Autor
+## Author
 
 jsrwell
