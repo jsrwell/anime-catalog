@@ -3,6 +3,7 @@ Anime Resources
 """
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
+from flask_jwt_extended import jwt_required
 from marshmallow import ValidationError
 
 from app.models.db import db
@@ -21,16 +22,20 @@ class AnimeView(MethodView):
         """Return the data of an Anime."""
 
         anime = Anime.query.get(anime_id)
+
         if not anime:
             abort(404, message='Anime not found.')
+
         return anime
 
+    @jwt_required(fresh=True)
     @blueprint.response(200, AnimeSchema)
     @blueprint.arguments(AnimeUpdateSchema)
     def put(self, anime_data, anime_id):
         """Update the data of an Anime."""
 
         anime = Anime.query.get(anime_id)
+
         if not anime:
             abort(404, message='Anime not found.')
 
@@ -45,6 +50,7 @@ class AnimeView(MethodView):
 
         return anime
 
+    @jwt_required(fresh=True)
     def delete(self, anime_id):
         """Delete an Anime."""
 
@@ -55,7 +61,9 @@ class AnimeView(MethodView):
         try:
             db.session.delete(anime)
             db.session.commit()
+
             return {'message': 'Anime deleted.'}
+
         except Exception as e:
             db.session.rollback()
             abort(400, message=f'Error deleting anime: {str(e)}')
@@ -70,8 +78,10 @@ class AnimeListView(MethodView):
         """Return a list of animes."""
 
         animes = Anime.query.all()
+
         return animes
 
+    @jwt_required(fresh=True)
     @blueprint.response(201, AnimeSchema)
     @blueprint.arguments(AnimeSchema)
     def post(self, new_anime):
@@ -81,6 +91,7 @@ class AnimeListView(MethodView):
             anime = Anime(**new_anime)
             db.session.add(anime)
             db.session.commit()
+
             return anime, 201
 
         except ValidationError as ve:

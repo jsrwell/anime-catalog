@@ -3,6 +3,7 @@ Gender Resources
 """
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
+from flask_jwt_extended import jwt_required
 
 from app.models.db import db
 from app.models.gender import Gender
@@ -26,6 +27,7 @@ class GenderView(MethodView):
 
         return gender
 
+    @jwt_required(fresh=True)
     @blueprint.response(200, GenderSchema)
     @blueprint.arguments(GenderUpdateSchema)
     def put(self, gender_data, gender_id):
@@ -48,6 +50,7 @@ class GenderView(MethodView):
 
         return gender
 
+    @jwt_required(fresh=True)
     def delete(self, gender_id):
         """Delete a Gender."""
 
@@ -59,6 +62,7 @@ class GenderView(MethodView):
         try:
             db.session.delete(gender)
             db.session.commit()
+
             return {'message': 'Gender deleted.'}
 
         except Exception as e:
@@ -78,6 +82,7 @@ class GenderListView(MethodView):
 
         return genders
 
+    @jwt_required(fresh=True)
     @blueprint.response(201, GenderSchema)
     @blueprint.arguments(GenderSchema)
     def post(self, new_gender):

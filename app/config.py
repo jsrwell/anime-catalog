@@ -7,3 +7,4 @@ OPENAPI_SWAGGER_UI_PATH = "/"
 OPENAPI_SWAGGER_UI_URL = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
 SQLALCHEMY_DATABASE_URI = "sqlite:///project.db"
 SQLALCHEMY_TRACK_MODIFICATIONS = False
+JWT_SECRET_KEY = "My_Key_Is_Not_Your_Key"
